@@ -1,0 +1,168 @@
+class DoublyLinkedList{
+	public Node head = null;
+	public Node tail = null;
+	
+	class Node{
+		int data;
+		Node next;
+		Node previous;
+		
+		public Node(int data){
+			this.data=data;
+			this.next=null;
+			this.previous=null;
+		}
+	}
+	public void addNode(int data){
+		Node newNode = new Node(data);
+		if(head==null){
+			head = newNode;
+			tail = newNode;
+		}
+		else{
+			tail.next = newNode;
+			newNode.previous = tail;
+			tail = newNode;
+		}
+	}
+	public void addFirst(int data){
+		Node newNode = new Node(data);
+		if(head==null){
+			head = newNode;
+			tail = newNode;
+		}
+		else{
+			newNode.next = head;
+			head.previous = newNode;
+			head = newNode;
+			newNode.previous = null;
+		}
+	}
+	public void addPosition(int position, int data){
+		Node newNode = new Node(data);
+		Node current = head;
+		if(head==null){
+			head = newNode;
+			tail = newNode;
+		}else if(current==tail){
+			tail.next=newNode;
+			newNode.previous = tail;
+			tail = newNode;
+			newNode.next=null;
+		}else{
+			for(int i=0; i<position-2;i++){
+				current = current.next;
+			}
+			newNode.next = current.next;
+			current.next = newNode;
+			newNode.previous = current;
+			
+		}
+	}
+	public void addEnd(int data){
+		Node current = head;
+		Node newNode = new Node(data);
+		if(head==null){
+			head = newNode;
+			tail = newNode;
+		}
+		else{
+			while(current.next!=null){
+				current = current.next;
+			}
+			current.next = newNode;
+			newNode.previous = current;
+			newNode.next = null;
+			tail = newNode;
+		}
+	}
+	public void deleteFirst(){
+		Node current = head;
+		if(head==null){
+			System.out.println("List is empty");
+		}else{
+			head = head.next;
+			head.previous = null;
+		}
+	}
+	public void deletePostion(int position){
+		Node current = head;
+		if(head==null){
+			System.out.println("List is empty");
+		}else{
+			for(int i=0;i<position-2;i++){
+				current = current.next;
+			}
+			current.next = current.next.next;
+			current.next.next.previous = current;
+		}
+	}
+	public void deleteEnd(){
+		Node current = head;
+		if(head==null){
+			System.out.println("List is empty");
+		}else{
+			tail.previous.next = null;
+			tail = tail.previous;
+		}
+	}
+	public void search(int data){
+		boolean found = false;
+		Node current = head;
+		while(current!=null){
+			if(current.data==data){
+				found = true;
+				break;
+			}
+			current = current.next;
+		}
+		if(found){
+			System.out.println(data+" is found");
+		}
+		else{
+			System.out.println(data+" is not found");
+		}
+	}
+	public void display(){
+		Node current = head;
+		if(head==null){
+			System.out.println("List is empty");
+		}else{
+			while(current!=null){
+				System.out.print(current.data+" ");
+				current = current.next;
+			}
+			System.out.println();
+		}
+	}
+	public static void main(String[] args)
+	{
+		DoublyLinkedList d1 = new DoublyLinkedList();
+		d1.addNode(10);
+		d1.addNode(20);
+		d1.addNode(30);
+		d1.addNode(40);
+		d1.display();
+		
+		d1.addFirst(90);
+		d1.display();
+		
+		d1.addPosition(4,50);
+		d1.display();
+		
+		d1.addEnd(75);
+		d1.addEnd(96);
+		d1.display();
+		
+		d1.deletePostion(5);
+		d1.display();
+		
+		d1.deleteEnd();
+		d1.display();
+		
+		d1.search(50);
+		d1.search(40);
+		d1.search(60);d1.deleteEnd();
+		d1.display();
+	}
+}

@@ -1,0 +1,30 @@
+class Stack{
+	static final int = 5;
+	int top;
+	int sArray = new int[size];
+
+	Stack(){
+		top=-1;
+	}
+	boolean isEmpty(){
+		return (top<0);
+	}
+	boolean isFull(){
+		return (top==size-1);
+	}
+	void push(int data){
+		if(isFull()){
+			System.out.println("Stack is overflow");
+		}else{
+			sArray[++top] = data;
+			System.out.println(data+" push inot stack");
+		}
+	}
+	int pop(){
+		if(isEmpty()){
+			System.out.println("Stack is underflow");
+		}else{
+			return sArray[top--];
+		}
+	}
+}
